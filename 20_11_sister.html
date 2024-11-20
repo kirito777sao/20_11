@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc mừng 20/11</title>
+    <style>
+        /* Kaushan+Script, oregano, sail */
+        @import url("https://fonts.googleapis.com/css?family=Kaushan+Script");
+
+        html, body, .container {
+            height: 100%;
+            font-family: "Kaushan Script", "Sail", cursive;
+        }
+
+        body {
+            background: #e74;
+            overflow: hidden;
+            background-image: linear-gradient(to bottom, #190e14, #0d0d4b 30%, #c76075 80%, #e9b64b 95%);
+            background-image: radial-gradient(circle at center bottom, #e9b64b, #c76075 15%, #0d0d4b 75%, #190e14 90%);
+            z-index: 99;
+        }
+
+        .character {
+            position: absolute;
+            bottom: 0;
+            left: -200px;
+            animation: walkIn 5s forwards;
+        }
+
+        .flowers-in-hand { 
+            position: absolute;
+            left: 40px; 
+            bottom: 80px; 
+            transform: rotate(-10deg);
+            animation: walkIn 5s forwards;
+        }
+
+        .gift-box {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .open-gift-box { /* Hộp quà mở sẽ xuất hiện sau */
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0; /* Ban đầu ẩn */
+            z-index: 1;
+        }
+
+        .card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 400px;
+            background-image: url("thiep2.png");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 3px solid #c0392b;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeIn 2s forwards 7s;
+            padding: 20px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            z-index: 101; /* Ensure card is above balloons */
+        }
+
+        #balloon-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 100; /* Balloons below the card */
+        }
+
+        /* Animations */
+        @keyframes walkIn {
+            to { left: calc(50% - 100px); } 
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+/* 
+        #balloon-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 100; 
+        } */
+
+        .balloon {
+            position: absolute;
+            bottom: -50px;
+            opacity: 0;
+            animation: balloonFloat 8s linear infinite;
+        }
+
+        @keyframes balloonFloat {
+            0% { opacity: 0; transform: translateY(0); }
+            10% { opacity: 1; }
+            100% { transform: translateY(-200vh); }
+        }
+
+        .card-content {
+            color: #190e14;
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" loop autoplay>
+        <source src="cute-cat-256893.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <img src="character-removebg-preview.png" alt="Nhân vật" class="character">
+    <img src="flower-removebg-preview.png" alt="Hoa" class="flowers-in-hand">
+    <img src="box-removebg-preview.png" alt="Hộp quà" class="gift-box">
+    <img src="box_open-removebg-preview.png" alt="Hộp quà đã mở " class="open-gift-box">
+    <div id="balloon-container"></div>
+
+    <div class="card">
+        <div class="card-content">
+            <h2>Chúc mừng chị gái nhân ngày 20/11!</h2>
+            <p>Chúc chị luôn mạnh khỏe, hạnh phúc và thành công trong cuộc sống.</p>
+            <p class="signature">Ký tên: D.Hale - Hắc Cơ Lỏ</p>
+        </div>
+    </div>
+
+    <script>
+        const numBalloons = 100; // Số lượng bóng bay
+        const balloonContainer = document.getElementById('balloon-container');
+        const giftBox = document.querySelector('.gift-box');
+        const openGiftBox = document.querySelector('.open-gift-box');
+
+        function createBalloons(num) {
+            for (let i = 0; i < num; i++) {
+                const balloon = document.createElement('img');
+                balloon.src = 'ball-removebg-preview.png'; // Đảm bảo rằng đường dẫn hình ảnh đúng
+                balloon.classList.add('balloon');
+                balloon.style.left = `${Math.random() * 100}vw`; // Vị trí ngẫu nhiên trên chiều rộng màn hình
+                balloon.style.animationDelay = `${Math.random() * 3}s`; // Thời gian trễ ngẫu nhiên
+                balloonContainer.appendChild(balloon);
+            }
+        }
+
+        window.addEventListener("load", () => {
+            createBalloons(numBalloons);
+        });
+
+        setTimeout(() => {
+            giftBox.style.display = 'none'; // Ẩn hộp quà đóng
+            openGiftBox.style.opacity = 1; // Hiện hộp quà mở
+            balloonContainer.style.opacity = 1; // Hiện bóng bay
+        }, 5000);
+    </script>
+</body>
+</html>
